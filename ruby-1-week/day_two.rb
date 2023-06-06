@@ -9,9 +9,14 @@
 class Tree
   attr_accessor :children, :node_name
 
-  def initialize(name, children = [])
+  def initialize(node_name, hash_node = {})
+    @node_name = node_name
+    children = []
+    hash_node.each do |k, v|
+      children.push(Tree.new(k, v))
+    end
     @children = children
-    @node_name = name
+
   end
 
   def visit_all(&block)
@@ -23,17 +28,6 @@ class Tree
     block.call self
   end
 end
-
-ruby_tree = Tree.new("Ruby",
-                     [Tree.new("Reia"),
-                      Tree.new("MacRuby")])
-
-puts "Visiting a node"
-ruby_tree.visit { |node| puts node.node_name }
-puts
-
-puts "visiting entire tree"
-ruby_tree.visit_all { |node| puts node.node_name }
 
 #1
 file = File.open("text1.txt")
@@ -72,6 +66,9 @@ end
 arr.each_slice(4) { |slice| puts "#3.1 #{slice}" }
 
 #4
+hash_tree = Tree.new('grandpa',{ 'dad' => { 'child 1' => {}, 'child 2' => {} }, 'uncle' => { 'child 3' => {}, 'child 4' => {} } })
+hash_tree.visit { |node| puts "#4 #{node.node_name}" }
+hash_tree.visit_all { |node| puts "4.1 #{node.node_name}" }
 
 #5
 File.foreach("text1.txt") do |line|
