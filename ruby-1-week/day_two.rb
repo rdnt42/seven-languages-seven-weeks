@@ -29,12 +29,13 @@ class Tree
   end
 end
 
+FILE_NAME_DAY_TWO = "text1.txt"
 #1
-file = File.open("text1.txt")
+file = File.open(FILE_NAME_DAY_TWO)
 puts "#1 #{file.read}"
 file.close
 
-file_data = File.read("text1.txt")
+file_data = File.read(FILE_NAME_DAY_TWO)
 puts "#1.1 #{file_data}"
 
 #2
@@ -71,7 +72,7 @@ hash_tree.visit { |node| puts "#4 #{node.node_name}" }
 hash_tree.visit_all { |node| puts "4.1 #{node.node_name}" }
 
 #5
-File.foreach("text1.txt") do |line|
+File.foreach(FILE_NAME_DAY_TWO) do |line|
   if line.index("text3")
     puts "#5 line is: #{line}"
   end
