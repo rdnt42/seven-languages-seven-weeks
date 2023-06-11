@@ -39,5 +39,60 @@ list append(4)
 avg := list avg(list)
 "#2 avg result " print; avg println
 
+#3
+Dim := Object clone
+Dim matrix ::= nil
+Dim dim := method(x, y,
+    result := List clone
+    for(i, 1, y,
+        row := List clone
+        for(j, 1, x,
+            row append(0)
+        )
+        result append(row)
+    )
+    matrix = result
+)
+Dim get := method(x, y,
+    row := matrix at(y)
+    return row at(x)
+)
+
+Dim set := method(x, y, value,
+    row := matrix at(y)
+    row atPut(x, value)
+)
+
+Dim getFileText := method(
+    sb := Sequence clone
+    for(y, 0, matrix size - 1,
+        row := matrix at(y)
+        for(x, 0, row size - 1,
+            sb appendSeq(row at(x) asString)
+            if(x != (row size ) - 1, sb appendSeq(","))
+        )
+        sb appendSeq("\n")
+    )
+
+    return sb
+)
+
+newMatrix := Dim clone
+newMatrix dim(10, 5)
+"#3 get result " print; newMatrix get(2, 3) println
+newMatrix set(2, 3, 14)
+"#3 get result " print; newMatrix get(2, 3) println
+
+#4
+
+file := File with("matrix_file.txt")
+file remove
+file openForUpdating
+
+matrixText := newMatrix getFileText()
+file write(matrixText)
+file close
+
+
 
 
