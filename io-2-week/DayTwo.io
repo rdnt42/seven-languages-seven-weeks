@@ -93,6 +93,28 @@ matrixText := newMatrix getFileText()
 file write(matrixText)
 file close
 
+file openForReading
+readText := file readLines
+readText println
+file close
+
+#5
+"#5 choose number between 1 and 10"
+#Random setSeed(Date clone now asNumber)
+#rnd := Random value(1, 10)
+rnd := 5
+for(i, 1, 10,
+    input := File standardInput readLine
+    num := input asNumber
+    #if(num == rnd) then("You won!" println; break)
+    #elseif(num < rnd) then("Your number lower than answer")
+    #else("Your number greater than answer")
+
+    if(num == rnd, "You won!" println;return,
+        if(num < rnd, "Your number lower than answer" println, "Your number greater than answer" println)
+    )
+)
+
 
 
 
