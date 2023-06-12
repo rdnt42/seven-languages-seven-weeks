@@ -114,7 +114,3 @@ for(i, 1, 10,
         if(num < rnd, "Your number lower than answer" println, "Your number greater than answer" println)
     )
 )
-
-
-
-
