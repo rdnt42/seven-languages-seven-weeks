@@ -1,11 +1,11 @@
 Builder := Object clone
 
-#sender := call sender
-    #spaces := if(sender type == "Object", "", "   ")
-   # write(spaces)
-
 Builder forward := method(
-    if(call message name != "curlyBrackets", tagParse(call message))
+    sender := call sender
+    spaces := if(sender type == "Object", "", "   ")
+    if(call message name != "curlyBrackets",
+        tagParse(call message, spaces)
+    )
 )
 
 attrParse := method(callMessage,
@@ -27,18 +27,16 @@ attrParse := method(callMessage,
 
     return sb
 )
-tagParse := method(callMessage,
-    write("<", callMessage name)
+tagParse := method(callMessage, spaces,
+    write(spaces);write("<", callMessage name)
     if((callMessage arguments at(0) name) == "curlyBrackets", attrParse(callMessage arguments at(0)) print)
     writeln(">")
-    #callMessage arguments println
-
 
     callMessage arguments foreach(arg,
         content := self doMessage(arg);
-	    if(content type == "Sequence", write("   ");writeln(content))
+	    if(content type == "Sequence", write(spaces);write("   ");writeln(content))
 	)
-    writeln("</", callMessage name, ">")
+    write(spaces);writeln("</", callMessage name, ">")
 )
 
 Builder ul(
