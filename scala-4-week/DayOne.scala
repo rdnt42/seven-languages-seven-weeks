@@ -24,10 +24,14 @@ object Game {
   }
 
   def main(args: Array[String]): Unit = {
-    writeField()
-    writeX(1, 1)
-    writeO(0, 2)
-    writeX(0, 1)
-    writeO(2, 1)
+    for (i <- 1 to 9) {
+      writeField()
+      val strArr = scala.io.StdIn.readLine().split(",")
+      if( i % 2 == 0) {
+        writeX(strArr(0).toInt, strArr(1).toInt)
+      } else {
+        writeO(strArr(0).toInt, strArr(1).toInt)
+      }
+    }
   }
 }
