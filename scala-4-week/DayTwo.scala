@@ -1,3 +1,4 @@
+import scala.io.Source._
 object Game extends Censor {
   def strLengthSum(list: List[String]): Int = {
     return list.foldLeft(0)((accum, elem) => accum + elem.length)
@@ -9,6 +10,7 @@ object Game extends Censor {
     println("sum is " + strLengthSum(list))
 
     //    2
+    init()
     val phrase = "darn, I forgot to shoot a text to let them know I'll be late."
     println("Before: " + phrase)
     val res = replace(phrase)
@@ -18,7 +20,16 @@ object Game extends Censor {
 }
 
 trait Censor {
-  val map: Map[String, String] = Map.apply("shoot" -> "pucky", "darn" -> "beans")
+  val map: scala.collection.mutable.Map[String, String] = scala.collection.mutable.Map()
+
+  def init(): Unit = {
+    val lines = fromFile("censor.txt").getLines()
+    for (line <- lines) {
+      println(line)
+      val strArr = line.split("->")
+      map += strArr(0) -> strArr(1)
+    }
+  }
 
   def replace(src: String): String = {
     var res = src
