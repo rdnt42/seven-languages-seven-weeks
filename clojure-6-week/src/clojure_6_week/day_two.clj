@@ -8,3 +8,21 @@
 
 (unless true (println "No more danger, Will."))
 (unless false (println "Now, THIS is The FORCE."))
+
+;2
+(defprotocol Duck
+  (quack [d])
+  )
+
+(defrecord LakeDuck [name] Duck
+  (quack [_] (println (str "Lake duck " name " quacked")))
+  )
+
+(defrecord ForestDuck [name] Duck
+  (quack [_] (println (str "Forest duck " name " quacked")))
+  )
+
+(def duck-one (LakeDuck. "Justin"))
+(def duck-two (ForestDuck. "Takeshi"))
+(quack duck-one)
+(quack duck-two)
