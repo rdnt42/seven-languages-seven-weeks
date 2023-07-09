@@ -31,15 +31,15 @@
 (defn game []
 
   (def rnd (rand-int 10))
-   (def input read-line)
+   (def input -1)
    (println "choose number between 1 and 10")
-   (while (input not= rnd)
-     cond (
-           (> rnd input) (println "Your number lower than answer")
-           (< rnd input) (println "Your number greater than answer")
-           )
+   (while (not= input rnd)
+     (def input (read-line))
+     (cond
+       (> rnd (Integer/parseInt input)) (println "Your number lower than answer")
+       (< rnd (Integer/parseInt input)) (println "Your number greater than answer")
+       :else (println "You won!")
+       )
      )
-   (println "You won!")
-
   )
 (game)
