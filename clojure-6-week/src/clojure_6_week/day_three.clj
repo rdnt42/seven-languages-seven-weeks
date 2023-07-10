@@ -1,5 +1,5 @@
 (ns clojure-6-week.day-three)
-  (:refer-clojure :exclude [get]))
+  (:refer-clojure :exclude [get])
 
 ; START:create
 (defn create
@@ -27,3 +27,24 @@
 ; END:usage
 
 ;1
+(defn create
+  []
+  (atom 0))
+
+(defn debit
+  [account add-sum]
+  (swap! account - add-sum))
+
+( defn credit
+[account add-sum]
+(swap! account + add-sum))
+
+(def account (create))
+(println @account)
+(credit account 5)
+(println @account)
+(debit account 1)
+(debit account 2)
+(println @account)
+
+
