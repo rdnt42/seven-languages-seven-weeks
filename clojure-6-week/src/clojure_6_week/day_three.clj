@@ -1,5 +1,5 @@
 (ns clojure-6-week.day-three)
-  (:refer-clojure :exclude [get])
+(:refer-clojure :exclude [get])
 
 ; START:create
 (defn create
@@ -35,9 +35,9 @@
   [account add-sum]
   (swap! account - add-sum))
 
-( defn credit
-[account add-sum]
-(swap! account + add-sum))
+(defn credit
+  [account add-sum]
+  (swap! account + add-sum))
 
 (def account (create))
 (println @account)
@@ -46,5 +46,22 @@
 (debit account 1)
 (debit account 2)
 (println @account)
+
+;2
+(def totalCount 0)
+(def stack [])
+
+(defn checkClient
+  if ( < 3 (stack alength)) ()
+
+  )
+(future (loop []
+          ;(do-something)
+          (Thread/sleep 20)
+          (recur)))
+(future (loop []
+          ;(do-something-else)
+          (Thread/sleep (rand-int-min-max 10 30))
+          (recur)))
 
 
