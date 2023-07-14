@@ -48,20 +48,31 @@
 (println @account)
 
 ;2
-(def totalCount 0)
-(def stack [])
+(def totalCount (atom 0))
+(def queue (atom 0))
 
-(defn checkClient
-  if ( < 3 (stack alength)) ()
+(defn takeClient []
+  (if (< @queue 3)
+    (do
+      (swap! queue inc)
+      (swap! totalCount inc))))
 
-  )
+(defn freeClient []
+  (if (> @queue 0)
+    (
+      do (swap! queue dec))))
 (future (loop []
-          ;(do-something)
-          (Thread/sleep 20)
+          (takeClient)
+          (Thread/sleep (rand-int 21) (+ 10 30))
           (recur)))
 (future (loop []
-          ;(do-something-else)
-          (Thread/sleep (rand-int-min-max 10 30))
+          (freeClient)
+          (Thread/sleep 20)
+          (recur)))
+
+(future (loop []
+          (Thread/sleep 10000)
+          (println totalCount)
           (recur)))
 
 
