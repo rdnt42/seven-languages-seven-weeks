@@ -1,19 +1,15 @@
--- monad example
--- START:identity
-module Main where
-    data Position t = Position t deriving (Show)
+import Data.HashMap.Strict (HashMap)
+import qualified Data.HashMap.Strict as HashMap
+-- chat gpt
 
-    stagger (Position d) = Position (d + 2)
-    crawl (Position d) = Position (d + 1)
+hasValue :: (Eq k, Hashable k) => k -> HashMap k v -> Maybe v
+hasValue key hashMap = HashMap.lookup key hashMap
 
-    rtn x = x
-    x >>== f = f x
--- END:identity
-
--- START:functions
-    treasureMap pos = pos >>==
-                      stagger >>==
-                      stagger >>==
-                      crawl >>==
-                      rtn
--- END:functions
+main :: IO ()
+main = do
+    let hashMap = HashMap.fromList [("apple", 5), ("banana", 3), ("orange", 2)]
+    let key = "banana"
+    let result = hasValue key hashMap
+    case result of
+        Just value -> putStrLn $ "key: " ++ key ++ ", value: " ++ show value
+        Nothing    -> putStrLn $ "key " ++ key ++ " doesn't exists"
